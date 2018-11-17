@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQueue<K, V> {
 
@@ -8,6 +10,17 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
     public BHPriorityQueueue() {
         this.priorityQueue = new ArrayList<>();
         priorityQueue.add(0, null);
+    }
+    public BHPriorityQueueue(List<Entry<K, V>>... lists){
+        this.priorityQueue = new ArrayList<>();
+        for (List l: lists){
+            priorityQueue.addAll(l);
+        }
+        priorityQueue.add(0, null);
+        int firstRootIndex = priorityQueue.size() % 2 == 0 ? priorityQueue.size() / 2 : (priorityQueue.size() - 1) / 2;
+        for (int i = firstRootIndex; i>0; i--){
+            ClimbUp(priorityQueue.get(i));
+        }
     }
 
     @Override
@@ -48,7 +61,9 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
 
     @Override
     public VCPriorityQueue<K, V> merge(VCPriorityQueue other) {
-        return null;
+        List<Entry<K, V>> otherList = ((BHPriorityQueueue<K,V>) other).getList();
+        BHPriorityQueueue<K, V> newList = new BHPriorityQueueue<>(priorityQueue, otherList);
+        return newList;
     }
 
     private void ClimbUp(Entry entry)
@@ -119,4 +134,10 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
         priorityQueue.set(index1, temp2);
         priorityQueue.set(index2, temp1);
     }
+
+    public List<Entry<K, V>> getList(){
+        return priorityQueue;
+    }
+
+
 }
