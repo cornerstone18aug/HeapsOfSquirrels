@@ -27,6 +27,9 @@ public class ALPriorityQueue<K extends Comparable, V> implements VCPriorityQueue
 
     @Override
     public Entry<K, V> peek() {
+        if(isEmpty()){
+            return null;
+        }
         // find the minimum priority Entry
         // return the Entry
         Entry<K, V> min = queue.get(0);
@@ -40,6 +43,9 @@ public class ALPriorityQueue<K extends Comparable, V> implements VCPriorityQueue
 
     @Override
     public Entry<K, V> dequeueMin() {
+        if(isEmpty()){
+            return null;
+        }
         int minIndex = 0;
         for(int i = 1; i < queue.size(); i++) {
             if(queue.get(i).getKey().compareTo(queue.get(minIndex).getKey()) < 0) {

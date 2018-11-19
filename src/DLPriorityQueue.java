@@ -41,11 +41,18 @@ public class DLPriorityQueue<K extends Comparable, V> implements VCPriorityQueue
 
     @Override
     public Entry<K, V> peek() {
+        if(isEmpty()){
+            return null;
+        }
         return entryLinkedList.get(0);
     }
 
     @Override
     public Entry<K, V> dequeueMin() {
+
+        if(isEmpty()){
+            return null;
+        }
         return entryLinkedList.remove(0);
     }
 

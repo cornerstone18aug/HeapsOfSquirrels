@@ -11,6 +11,8 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
         this.priorityQueue = new ArrayList<>();
         priorityQueue.add(0, null);
     }
+
+    //Not used
     public BHPriorityQueueue(List<Entry<K, V>>... lists){
         this.priorityQueue = new ArrayList<>();
         for (List l: lists){
@@ -43,11 +45,17 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
 
     @Override
     public Entry<K, V> peek() {
+        if(isEmpty()){
+            return null;
+        }
         return priorityQueue.get(1);
     }
 
     @Override
     public Entry<K, V> dequeueMin() {
+        if(isEmpty()){
+            return null;
+        }
         Entry<K, V> entryRemoved = priorityQueue.get(1);
         if(size() <= 1){
             priorityQueue.remove(1);
