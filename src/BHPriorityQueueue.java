@@ -25,7 +25,7 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
 
     @Override
     public int size() {
-        return priorityQueue.size()<= 1 ? 0:priorityQueue.size()-1;
+        return priorityQueue.size()<= 1 ? 0:(priorityQueue.size()-1);
     }
 
     @Override
@@ -62,8 +62,13 @@ public class BHPriorityQueueue<K extends  Comparable, V> implements VCPriorityQu
     @Override
     public VCPriorityQueue<K, V> merge(VCPriorityQueue other) {
         List<Entry<K, V>> otherList = ((BHPriorityQueueue<K,V>) other).getList();
-        BHPriorityQueueue<K, V> newList = new BHPriorityQueueue<>(priorityQueue, otherList);
-        return newList;
+        otherList.remove(0);
+        priorityQueue.addAll(otherList);
+        int firstRootIndex = priorityQueue.size()/2 + 1;
+        for (int i = firstRootIndex; i>0; i--){
+            ClimbDown(priorityQueue.get(i));
+        }
+        return this;
     }
 
     private void ClimbUp(Entry entry)

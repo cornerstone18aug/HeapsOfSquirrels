@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Interface for the priority queue ADT(Abstract Data Type).
  *
@@ -43,4 +45,6 @@ public interface VCPriorityQueue<K extends Comparable, V> {
      * @return the merged priority queue
      */
     VCPriorityQueue<K, V> merge(VCPriorityQueue<K, V> other);
+
+
 }

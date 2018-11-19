@@ -3,31 +3,31 @@ import java.util.function.Consumer;
 public class Driver {
 
     public static void main(String[] args) {
-        BHPriorityQueueue testQueue = new BHPriorityQueueue();
-        testQueue.enqueue(11, "Eleven");
-        testQueue.enqueue(1, "One");
-        testQueue.enqueue(10, "Ten");
-        testQueue.enqueue(3, "Three");
-        testQueue.enqueue(5, "Five");
-        testQueue.enqueue(4, "Four");
+        DLPriorityQueue<Integer, String> testQueue = new DLPriorityQueue<>();
+        testQueue.enqueue(21, "21");
+        testQueue.enqueue(5, "5");
+        testQueue.enqueue(82, "82");
+        testQueue.enqueue(54, "54");
+        testQueue.enqueue(234, "234");
+        testQueue.enqueue(7, "7");
 
-        BHPriorityQueueue testQueue2 = new BHPriorityQueueue();
-        testQueue.enqueue(9, "Nine");
-        testQueue.enqueue(7, "Seven");
-        testQueue.enqueue(6, "Six");
-        testQueue.enqueue(2, "Two");
-        testQueue.enqueue(0, "Zero");
-        testQueue.enqueue(8, "Eight");
+        DLPriorityQueue<Integer, String> testQueue2 = new DLPriorityQueue<>();
+        testQueue2.enqueue(1, "1");
+        testQueue2.enqueue(2, "2");
+        testQueue2.enqueue(9, "9");
+        testQueue2.enqueue(64, "64");
+        testQueue2.enqueue(5, "5");
+        testQueue2.enqueue(4, "4");
 
 
-        BHPriorityQueueue testQueue3 = (BHPriorityQueueue) testQueue.merge(testQueue2);
+        DLPriorityQueue<Integer, String> testQueue3 = (DLPriorityQueue<Integer, String>) testQueue.merge(testQueue2);
 
-        testQueue3.getList().forEach(o -> {
-            if (o != null){
-                System.out.println(((Entry)o).getValue());
+        testQueue2.getEntryLinkedList().forEach(o -> {
+            if (o != null) {
+                System.out.println(((Entry) o).getValue());
             }
         });
 
-    }
 
+    }
 }

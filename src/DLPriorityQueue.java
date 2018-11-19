@@ -8,6 +8,8 @@ public class DLPriorityQueue<K extends Comparable, V> implements VCPriorityQueue
         this.entryLinkedList = new LinkedList<>();
     }
 
+
+
     @Override
     public int size() {
         return entryLinkedList.size();
@@ -28,8 +30,10 @@ public class DLPriorityQueue<K extends Comparable, V> implements VCPriorityQueue
                    break;
                }
             }
-            entryLinkedList.add(newEntry);
         } else {
+            entryLinkedList.add(newEntry);
+        }
+        if(!entryLinkedList.contains(newEntry)){
             entryLinkedList.add(newEntry);
         }
         return newEntry;
@@ -47,17 +51,39 @@ public class DLPriorityQueue<K extends Comparable, V> implements VCPriorityQueue
 
     @Override
     public VCPriorityQueue<K, V> merge(VCPriorityQueue<K, V> other) {
-        DLPriorityQueue<K, V> newDLPriorityQueue = new DLPriorityQueue<>();
 
+        DLPriorityQueue<K, V> newDLPriorityQueue = new DLPriorityQueue<>();
+        LinkedList<Entry<K,V>> temp = new LinkedList<>(((DLPriorityQueue<K, V>)other).getEntryLinkedList());
         Entry<K, V> entryToAdd;
-        for(int i = 0; i < other.size() + entryLinkedList.size(); i++) {
-            if(entryLinkedList.peek().getKey().compareTo(other.peek().getKey()) > 0) {
-                entryToAdd = other.dequeueMin();
-            } else {
+
+        int toIterate = other.size() + entryLinkedList.size();
+        for(int i = 0; i < toIterate; i++) {
+            entryToAdd = null;
+            if(other.size() > 0 && entryLinkedList.size() > 0){
+                if(entryLinkedList.peek().getKey().compareTo(other.peek().getKey()) > 0) {
+                    entryToAdd = other.dequeueMin();
+                } else {
+                    entryToAdd = dequeueMin();
+                }
+            } else if(other.size() <= 0){
                 entryToAdd = dequeueMin();
+            } else if(size() <= 0){
+                entryToAdd = other.dequeueMin();
             }
-            newDLPriorityQueue.enqueue(entryToAdd.getKey(), entryToAdd.getValue());
+            if (entryToAdd != null){
+                newDLPriorityQueue.enqueue(entryToAdd.getKey(), entryToAdd.getValue());
+            }
         }
+        ((DLPriorityQueue<K, V>) other).setList(temp);
+        setList(newDLPriorityQueue.getEntryLinkedList());
         return newDLPriorityQueue;
+    }
+
+    public void setList(LinkedList<Entry<K, V>> newList){
+        entryLinkedList = newList;
+    }
+
+    public LinkedList<Entry<K, V>> getEntryLinkedList() {
+        return entryLinkedList;
     }
 }
